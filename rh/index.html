@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>AKT Gestor ERP · RH</title>
+  <link rel="stylesheet" href="rh.css" />
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">AKT Gestor ERP</span>
+    <nav class="tabs" role="tablist">
+      <a href="#" role="tab" class="tab" aria-selected="false">Início</a>
+      <a href="#" role="tab" class="tab" aria-selected="false">Financeiro</a>
+      <a href="#" role="tab" class="tab" aria-selected="false">Operações</a>
+      <a href="#rh" role="tab" class="tab active" aria-selected="true">RH</a>
+    </nav>
+  </header>
+
+  <main id="rh" class="rh">
+    <section class="toolbar">
+      <h1>Recursos Humanos</h1>
+      <div class="filters">
+        <label>De <input type="date" id="fInicio" /></label>
+        <label>Até <input type="date" id="fFim" /></label>
+        <label>Regional
+          <select id="fRegional"><option value="">Todas</option></select>
+        </label>
+        <label class="btn">Importar CSV/JSON
+          <input type="file" id="fImport" accept=".csv,.json" hidden />
+        </label>
+        <button type="button" id="btnExemplo" class="btn ghost">Dados de exemplo</button>
+      </div>
+    </section>
+
+    <!-- Destaque principal: Turnover -->
+    <section class="hero" aria-label="Taxa de turnover">
+      <div>
+        <p class="hero-label">Taxa de Turnover</p>
+        <p class="hero-value" id="kTurnover">–</p>
+        <p class="hero-sub" id="kTurnoverSub"></p>
+      </div>
+      <div class="hero-meter" aria-hidden="true"><span id="turnoverBar"></span></div>
+      <p class="hero-formula">((Admissões + Demissões) ÷ 2) ÷ Efetivo médio × 100</p>
+    </section>
+
+    <section class="kpis">
+      <article class="kpi"><p>Total de funcionários</p><strong id="kTotal">–</strong><small>ativos no fim do período</small></article>
+      <article class="kpi"><p>Admissões</p><strong id="kAdm">–</strong><small>no período</small></article>
+      <article class="kpi"><p>Demissões</p><strong id="kDem">–</strong><small>no período</small></article>
+      <article class="kpi"><p>Férias</p><strong id="kFer">–</strong><small>colaboradores no período</small></article>
+    </section>
+
+    <section class="grid">
+      <article class="card"><h2>Admissões por alocação</h2><div id="gAdm" class="bars"></div></article>
+      <article class="card"><h2>Demissões por alocação</h2><div id="gDem" class="bars"></div></article>
+      <article class="card"><h2>Férias por alocação</h2><div id="gFer" class="bars"></div></article>
+      <article class="card"><h2>Colaboradores por regional</h2><div id="gReg" class="bars"></div></article>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>Regionais por colaborador</h2>
+        <input type="search" id="fBusca" placeholder="Buscar nome, matrícula ou alocação" />
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Matrícula</th><th>Colaborador</th><th>Alocação</th><th>Regional</th><th>Situação</th></tr></thead>
+          <tbody id="tColab"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="note">Formato de importação (CSV com cabeçalho ou JSON array):
+      <code>matricula, nome, alocacao, regional, data_admissao, data_demissao, ferias_inicio, ferias_fim</code>
+      — datas em AAAA-MM-DD ou DD/MM/AAAA.</p>
+  </main>
+
+  <script type="module" src="rh.js"></script>
+</body>
+</html>
